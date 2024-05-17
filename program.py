@@ -14,6 +14,7 @@ class BotRun:
         dp = Dispatcher(storage=handlers.storage)
         dp.include_router(handlers.router)
         dp.startup.register(set_main_menu)
+        
         await bot.delete_webhook(drop_pending_updates=True)
         await dp.start_polling(bot)
 
