@@ -57,7 +57,7 @@ import psycopg2 as sq
 class AKCBD:
     def __init__(self) -> None:
         self.conn = sq.connect(
-            dbname="AKC", user="gregor", password="grisha09.03", host='217.18.61.104'
+            dbname="AKC", user="postgres", password="grisha09.03", host='127.0.0.1'
         )
         self.cur = self.conn.cursor()
         self.conn.autocommit = True
