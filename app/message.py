@@ -81,6 +81,7 @@ class AKCBD:
         )
 
     def taken(self, username, date_time, product, comment):
+        self.conn.autocommit = True
         self.cur.execute(
             """
         INSERT INTO taken_products(
@@ -93,6 +94,7 @@ class AKCBD:
         )
 
     def accumulated(self, username, date_time, product, comment):
+        self.conn.autocommit = True
         self.cur.execute(
             """
         INSERT INTO accumulated_products(
