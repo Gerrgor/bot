@@ -24,7 +24,7 @@ class BotRun:
 if __name__ == "__main__":
     bot_run = BotRun()
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.WARNING,
         format="%(filename)s:%(lineno)d #%(levelname)-8s "
         "[%(asctime)s] - %(name)s - %(message)s",
         handlers=[
