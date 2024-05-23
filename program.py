@@ -10,6 +10,7 @@ from app import set_main_menu
 env = Env()
 env.read_env()
 
+
 class BotRun:
     async def main(self):
         env = Env()
@@ -29,14 +30,16 @@ if __name__ == "__main__":
         format="%(filename)s:%(lineno)d #%(levelname)-8s "
         "[%(asctime)s] - %(name)s - %(message)s",
         handlers=[
-        TelegramLogHandler(
-            token=env("BOT_TOKEN"), 
-            log_chat_id=-1002192002447, 
-            update_interval=2, 
-            minimum_lines=1, 
-            pending_logs=200000),
-        logging.StreamHandler()
-    ])
+            TelegramLogHandler(
+                token=env("BOT_TOKEN"),
+                log_chat_id=-1002192002447,
+                update_interval=2,
+                minimum_lines=1,
+                pending_logs=200000,
+            ),
+            logging.StreamHandler(),
+        ],
+    )
     try:
         asyncio.run(bot_run.main())
     except:
