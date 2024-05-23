@@ -13,8 +13,6 @@ env.read_env()
 
 class BotRun:
     async def main(self):
-        env = Env()
-        env.read_env()
         bot = Bot(token=env("BOT_TOKEN"))
         dp = Dispatcher(storage=handlers.storage)
         dp.include_router(handlers.router)
@@ -32,7 +30,7 @@ if __name__ == "__main__":
         handlers=[
             TelegramLogHandler(
                 token=env("BOT_TOKEN"),
-                log_chat_id=-1002192002447,
+                log_chat_id=env('log_chat_id'),
                 update_interval=2,
                 minimum_lines=1,
                 pending_logs=200000,
