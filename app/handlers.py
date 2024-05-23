@@ -51,15 +51,14 @@ async def process_start_command(message: Message, state: FSMContext):
 async def process_taken_command(message: Message, state: FSMContext):
     await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_1)
     await state.set_state(DiffStates.Taken)
-    states["table"] = 'Взятое'
+    states["table"] = "Взятое"
 
 
 @router.message(F.text == "Наработанное")
 async def process_accumulated_command(message: Message, state: FSMContext):
     await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_6)
     await state.set_state(DiffStates.Accumulated)
-    states["table"] = 'Наработанное'
-
+    states["table"] = "Наработанное"
 
 
 # F4

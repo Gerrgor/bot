@@ -19,7 +19,13 @@ button_13 = KeyboardButton(text="PEG")
 button_14 = KeyboardButton(text="Тальк")
 
 my_keyboard_1 = ReplyKeyboardMarkup(
-    keyboard=[[button_1, button_2], [button_3, button_4], [button_13, button_14], [button_10]], resize_keyboard=True
+    keyboard=[
+        [button_1, button_2],
+        [button_3, button_4],
+        [button_13, button_14],
+        [button_10],
+    ],
+    resize_keyboard=True,
 )
 my_keyboard_2 = ReplyKeyboardMarkup(
     keyboard=[[button_5, button_6, button_7], [button_10]], resize_keyboard=True
