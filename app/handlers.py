@@ -93,14 +93,14 @@ async def process_ppa_command(message: Message, state: FSMContext):
 
 # 4060/4090
 @router.message(F.text == "0460")
-async def process_4060_command(message: Message, state: FSMContext):
+async def process_0460_command(message: Message, state: FSMContext):
     await message.answer(text="Введите количество", reply_markup=ReplyKeyboardRemove())
     await state.set_state(DiffStates._0460)
     await state.update_data(state2="0460")
 
 
 @router.message(F.text == "0490")
-async def process_4090_command(message: Message, state: FSMContext):
+async def process_0490_command(message: Message, state: FSMContext):
     await message.answer(text="Введите количество", reply_markup=ReplyKeyboardRemove())
     await state.set_state(DiffStates._0490)
     await state.update_data(state2="0490")
