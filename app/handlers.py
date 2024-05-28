@@ -20,8 +20,8 @@ class DiffStates(StatesGroup):
     Spirt = State()
     Talc = State()
     PEG = State()
-    _4060 = State()
-    _4090 = State()
+    _0460 = State()
+    _0490 = State()
     MP = State()
     MPX = State()
     VRX = State()
@@ -92,18 +92,18 @@ async def process_ppa_command(message: Message, state: FSMContext):
 
 
 # 4060/4090
-@router.message(F.text == "4060")
+@router.message(F.text == "0460")
 async def process_4060_command(message: Message, state: FSMContext):
     await message.answer(text="Введите количество", reply_markup=ReplyKeyboardRemove())
-    await state.set_state(DiffStates._4060)
-    await state.update_data(state2="4060")
+    await state.set_state(DiffStates._0460)
+    await state.update_data(state2="0460")
 
 
-@router.message(F.text == "4090")
+@router.message(F.text == "0490")
 async def process_4090_command(message: Message, state: FSMContext):
     await message.answer(text="Введите количество", reply_markup=ReplyKeyboardRemove())
-    await state.set_state(DiffStates._4090)
-    await state.update_data(state2="4090")
+    await state.set_state(DiffStates._0490)
+    await state.update_data(state2="0490")
 
 
 # Спирт
@@ -154,8 +154,8 @@ async def process_vrx_command(message: Message, state: FSMContext):
 @router.message(StateFilter(DiffStates.MPX))
 @router.message(StateFilter(DiffStates.MP))
 @router.message(StateFilter(DiffStates.VRX))
-@router.message(StateFilter(DiffStates._4060))
-@router.message(StateFilter(DiffStates._4090))
+@router.message(StateFilter(DiffStates._0460))
+@router.message(StateFilter(DiffStates._0490))
 @router.message(StateFilter(DiffStates.Spirt))
 @router.message(StateFilter(DiffStates.PEG))
 @router.message(StateFilter(DiffStates.Talc))
