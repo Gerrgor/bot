@@ -91,7 +91,7 @@ async def process_ppa_command(message: Message, state: FSMContext):
     await state.update_data(state1="PPA")
 
 
-# 4060/4090
+# 0460/0490
 @router.message(F.text == "0460")
 async def process_0460_command(message: Message, state: FSMContext):
     await message.answer(text="Введите количество", reply_markup=ReplyKeyboardRemove())
