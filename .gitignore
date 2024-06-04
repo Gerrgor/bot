@@ -1,2 +1,4 @@
 .env
 venv/
+bot/__pycache__/
+bot/app/__pycache__/
