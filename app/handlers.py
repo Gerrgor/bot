@@ -31,8 +31,6 @@ class DiffStates(StatesGroup):
 
 keys = ["state1", "state2", "comment", "table"]
 states = dict.fromkeys(keys)
-# keys2 = []
-# data = dict.fromkeys(keys2)
 
 env = Env()
 env.read_env()

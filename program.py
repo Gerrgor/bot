@@ -30,7 +30,7 @@ if __name__ == "__main__":
         handlers=[
             TelegramLogHandler(
                 token=env("BOT_TOKEN"),
-                log_chat_id=env('log_chat_id'),
+                log_chat_id=env("log_chat_id"),
                 update_interval=2,
                 minimum_lines=1,
                 pending_logs=200000,

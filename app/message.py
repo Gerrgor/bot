@@ -1,10 +1,17 @@
 import psycopg2 as sq
+from environs import Env
+
+env = Env()
+env.read_env()
 
 
 class AKCBD:
     def __init__(self) -> None:
         self.conn = sq.connect(
-            dbname="postgres", user="postgres", password="grisha09.03", host="217.18.61.104"
+            dbname="postgres",
+            user="postgres",
+            password=env("db_pass"),
+            host=env("db_host"),
         )
         self.cur = self.conn.cursor()
         self.conn.autocommit = True
