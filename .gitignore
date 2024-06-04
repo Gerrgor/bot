@@ -1,4 +1,2 @@
 .env
-bot/__pycache__/
 venv/
-app/__pycache__/
