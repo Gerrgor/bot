@@ -27,9 +27,15 @@ class DiffStates(StatesGroup):
     VRX = State()
     Taken = State()
     Accumulated = State()
+    Mill = State()
+    Dryer = State()
+    Taken_Mill = State()
+    Taken_Dryer = State()
+    Accumulated_Mill = State()
+    Cyclone = State()
 
 
-keys = ["state1", "state2", "comment", "table"]
+keys = ["state1", "state2", "comment", "table", "process"]
 states = dict.fromkeys(keys)
 
 env = Env()
@@ -40,52 +46,106 @@ env.read_env()
 @router.message(CommandStart())
 async def process_start_command(message: Message, state: FSMContext):
     await message.answer(
-        text="Привет. Выберите заносимые данные", reply_markup=keyboard.my_keyboard_5
+        text="Привет! Выберите заносимые данные", reply_markup=keyboard.my_keyboard_6
     )
     await state.clear()
 
 
-@router.message(F.text == "Взятое")
-async def process_taken_command(message: Message, state: FSMContext):
-    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_1)
-    await state.set_state(DiffStates.Taken)
+@router.message(F.text == "Мельница")
+async def process_mill_command(message: Message, state: FSMContext):
+    await message.answer(
+        text="Выберите, что хотите занести", reply_markup=keyboard.my_keyboard_4
+    )
+    await state.set_state(DiffStates.Mill)
+    states["process"] = "Мельница"
+
+
+@router.message(F.text == "Сушка")
+async def process_dryer_command(message: Message, state: FSMContext):
+    await message.answer(
+        text="Выберите, что хотите занести", reply_markup=keyboard.my_keyboard_4
+    )
+    await state.set_state(DiffStates.Dryer)
+    states["process"] = "Сушка"
+
+
+# Взятое на мельницу
+@router.message(F.text == "Взятое", StateFilter(DiffStates.Mill))
+async def process_taken_mill_command(message: Message, state: FSMContext):
+    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_5)
+    await state.set_state(DiffStates.Taken_Mill)
     states["table"] = "Взятое"
 
 
-@router.message(F.text == "Наработанное")
-async def process_accumulated_command(message: Message, state: FSMContext):
-    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_6)
-    await state.set_state(DiffStates.Accumulated)
+# Наработанное на мельнице
+@router.message(F.text == "Наработанное", StateFilter(DiffStates.Mill))
+async def process_accumulated_mill_command(message: Message, state: FSMContext):
+    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_5)
+    await state.set_state(DiffStates.Accumulated_Mill)
     states["table"] = "Наработанное"
 
 
-# F4
-@router.message(F.text == "F4")
-async def process_f4_command(message: Message, state: FSMContext):
-    await message.answer(
-        text="Выберите взятый продукт", reply_markup=keyboard.my_keyboard_2
-    )
-    await state.set_state(DiffStates.F4)
+# Взятое на сушку
+@router.message(F.text == "Взятое", StateFilter(DiffStates.Dryer))
+async def process_taken_dryer_command(message: Message, state: FSMContext):
+    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_7)
+    await state.set_state(DiffStates.Taken_Dryer)
+    states["table"] = "Взятое"
+
+
+@router.message(F.text == "Наработанное", StateFilter(DiffStates.Dryer))
+async def process_accumulated_dryer_command(message: Message, state: FSMContext):
+    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_3)
+    states["table"] = "Наработанное"
+
+
+# F4 и F4D на мельницу
+@router.message(F.text == "F4", StateFilter(DiffStates.Taken_Mill))
+async def process_f4_mill_command(message: Message, state: FSMContext):
+    await message.answer(text="Введите количество", reply_markup=ReplyKeyboardRemove())
     await state.update_data(state1="F4")
 
 
-# F4D
-@router.message(F.text == "F4D")
-async def process_f4d_command(message: Message, state: FSMContext):
-    await message.answer(
-        text="Выберите взятый продукт", reply_markup=keyboard.my_keyboard_3
-    )
-    await state.set_state(DiffStates.F4D)
+@router.message(F.text == "F4D", StateFilter(DiffStates.Taken_Mill))
+async def process_f4d_taken_mill_command(message: Message, state: FSMContext):
+    await message.answer(text="Введите количество", reply_markup=ReplyKeyboardRemove())
     await state.update_data(state1="F4D")
 
 
-# PPA
+# F4D наработанное на мельнице
+@router.message(F.text == "F4D", StateFilter(DiffStates.Accumulated_Mill))
+async def process_f4d_accumulated_mill_command(message: Message, state: FSMContext):
+    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_2)
+    # await state.set_state(DiffStates.F4D)
+    await state.update_data(state1="F4D")
+
+
+# F4 на суспензию
+@router.message(F.text == "F4", StateFilter(DiffStates.Taken_Dryer))
+async def process_f4_taken_dryer_command(message: Message, state: FSMContext):
+    await message.answer(text="Введите количество", reply_markup=ReplyKeyboardRemove())
+    await state.update_data(state1="F4")
+    await state.update_data(state2="MPX")
+
+
+@router.message(F.text == "F4")
+async def process_f4_command(message: Message, state: FSMContext):
+    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_1)
+    # await state.set_state(DiffStates.F4)
+    await state.update_data(state1="F4")
+
+
+@router.message(F.text == "F4D")
+async def process_f4d_command(message: Message, state: FSMContext):
+    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_1)
+    # await state.set_state(DiffStates.F4)
+    await state.update_data(state1="F4")
+
+
 @router.message(F.text == "PPA")
 async def process_ppa_command(message: Message, state: FSMContext):
-    await message.answer(
-        text="Выберите взятый продукт", reply_markup=keyboard.my_keyboard_4
-    )
-    await state.set_state(DiffStates.PPA)
+    await message.answer(text="Выберите продукт", reply_markup=keyboard.my_keyboard_3)
+    # await state.set_state(DiffStates.PPA)
     await state.update_data(state1="PPA")
 
 
@@ -148,10 +208,20 @@ async def process_vrx_command(message: Message, state: FSMContext):
     await state.update_data(state2="VRX")
 
 
+@router.message(F.text == "Циклон")
+async def process_cyclone_command(message: Message, state: FSMContext):
+    await message.answer(text="Введите количество", reply_markup=ReplyKeyboardRemove())
+    await state.set_state(DiffStates.Cyclone)
+    await state.update_data(state2="Циклон")
+
+
 # Ввод количества
+@router.message(StateFilter(DiffStates.Taken_Mill))
+@router.message(StateFilter(DiffStates.Taken_Dryer))
 @router.message(StateFilter(DiffStates.MPX))
 @router.message(StateFilter(DiffStates.MP))
 @router.message(StateFilter(DiffStates.VRX))
+@router.message(StateFilter(DiffStates.Cyclone))
 @router.message(StateFilter(DiffStates._0460))
 @router.message(StateFilter(DiffStates._0490))
 @router.message(StateFilter(DiffStates.Spirt))
@@ -162,6 +232,7 @@ async def process_comment_command(message: Message, state: FSMContext):
     date_time = message.date.now().strftime("%d/%m/%Y, %H:%M:%S")
     states["state2"] = await state.get_data()
     product = "".join(states["state2"].values())
+    process = states["process"]
     await state.clear()
     await state.update_data(comment=message.text)
     states["comment"] = await state.get_data()
@@ -169,11 +240,19 @@ async def process_comment_command(message: Message, state: FSMContext):
     await message.answer(text="Спасибо! К началу /start")
     if states["table"] == "Взятое":
         return akc.taken(
-            username=username, date_time=date_time, product=product, comment=comment
+            username=username,
+            date_time=date_time,
+            product=product,
+            comment=comment,
+            process=process,
         )
     elif states["table"] == "Наработанное":
         return akc.accumulated(
-            username=username, date_time=date_time, product=product, comment=comment
+            username=username,
+            date_time=date_time,
+            product=product,
+            comment=comment,
+            process=process,
         )
 
 

@@ -17,28 +17,43 @@ button_11 = KeyboardButton(text="Взятое")
 button_12 = KeyboardButton(text="Наработанное")
 button_13 = KeyboardButton(text="PEG")
 button_14 = KeyboardButton(text="Тальк")
+button_15 = KeyboardButton(text="Мельница")
+button_16 = KeyboardButton(text="Сушка")
+button_17 = KeyboardButton(text="Циклон")
 
+
+# Все виды F4
 my_keyboard_1 = ReplyKeyboardMarkup(
-    keyboard=[
-        [button_1, button_2],
-        [button_3, button_4],
-        [button_13, button_14],
-        [button_10],
-    ],
-    resize_keyboard=True,
+    keyboard=[[button_5, button_6], [button_7], [button_10]], resize_keyboard=True
 )
+
+# Все виды F4D наработанного
 my_keyboard_2 = ReplyKeyboardMarkup(
-    keyboard=[[button_5, button_6, button_7], [button_10]], resize_keyboard=True
+    keyboard=[[button_5, button_6], [button_17], [button_10]], resize_keyboard=True
 )
+
+# Все виды PPA
 my_keyboard_3 = ReplyKeyboardMarkup(
-    keyboard=[[button_5, button_6], [button_10]], resize_keyboard=True
-)
-my_keyboard_4 = ReplyKeyboardMarkup(
     keyboard=[[button_8, button_9], [button_10]], resize_keyboard=True
 )
-my_keyboard_5 = ReplyKeyboardMarkup(
-    keyboard=[[button_11, button_12]], resize_keyboard=True
+
+# Взятие/наработка
+my_keyboard_4 = ReplyKeyboardMarkup(
+    keyboard=[[button_11, button_12], [button_10]], resize_keyboard=True
 )
+
+# Виды порошка
+my_keyboard_5 = ReplyKeyboardMarkup(
+    keyboard=[[button_1, button_2], [button_10]], resize_keyboard=True
+)
+
+# Виды процесса
 my_keyboard_6 = ReplyKeyboardMarkup(
-    keyboard=[[button_1, button_2], [button_4], [button_10]], resize_keyboard=True
+    keyboard=[[button_15, button_16]], resize_keyboard=True
+)
+
+# Вещества на суспензию
+my_keyboard_7 = ReplyKeyboardMarkup(
+    keyboard=[[button_1, button_3], [button_13, button_14], [button_10]],
+    resize_keyboard=True,
 )

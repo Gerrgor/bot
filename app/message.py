@@ -22,7 +22,8 @@ class AKCBD:
                 username TEXT,
                 date_time TEXT,
                 product TEXT,
-                comment TEXT)"""
+                comment TEXT,
+                process TEXT)"""
         )
         self.cur.execute(
             """
@@ -31,10 +32,11 @@ class AKCBD:
                 username TEXT,
                 date_time TEXT,
                  product TEXT,
-                 comment TEXT)"""
+                 comment TEXT,
+                 process TEXT)"""
         )
 
-    def taken(self, username, date_time, product, comment):
+    def taken(self, username, date_time, product, comment, process):
         self.conn.autocommit = True
         self.cur.execute(
             """
@@ -42,12 +44,13 @@ class AKCBD:
                 username,
                 date_time,
                 product,
-                comment)
-                VALUES (%s, %s, %s, %s)""",
-            (username, date_time, product, comment),
+                comment,
+                process)
+                VALUES (%s, %s, %s, %s, %s)""",
+            (username, date_time, product, comment, process),
         )
 
-    def accumulated(self, username, date_time, product, comment):
+    def accumulated(self, username, date_time, product, comment, process):
         self.conn.autocommit = True
         self.cur.execute(
             """
@@ -55,7 +58,8 @@ class AKCBD:
                 username,
                 date_time,
                 product,
-                comment)
-                VALUES (%s, %s, %s, %s)""",
-            (username, date_time, product, comment),
+                comment,
+                process)
+                VALUES (%s, %s, %s, %s, %s)""",
+            (username, date_time, product, comment, process),
         )
