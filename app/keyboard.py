@@ -1,59 +1,42 @@
-from aiogram.types import (
-    KeyboardButton,
-    ReplyKeyboardMarkup,
-)
-
-button_1 = KeyboardButton(text="F4")
-button_2 = KeyboardButton(text="F4D")
-button_3 = KeyboardButton(text="Спирт")
-button_4 = KeyboardButton(text="PPA")
-button_5 = KeyboardButton(text="MP")
-button_6 = KeyboardButton(text="MPX")
-button_7 = KeyboardButton(text="VRX")
-button_8 = KeyboardButton(text="0460")
-button_9 = KeyboardButton(text="0490")
-button_10 = KeyboardButton(text="Назад")
-button_11 = KeyboardButton(text="Взятое")
-button_12 = KeyboardButton(text="Наработанное")
-button_13 = KeyboardButton(text="PEG")
-button_14 = KeyboardButton(text="Тальк")
-button_15 = KeyboardButton(text="Мельница")
-button_16 = KeyboardButton(text="Сушка")
-button_17 = KeyboardButton(text="Циклон")
-
+from aiogram.types import ReplyKeyboardMarkup
+from app.config import KB
 
 # Все виды F4
 my_keyboard_1 = ReplyKeyboardMarkup(
-    keyboard=[[button_5, button_6], [button_7], [button_10]], resize_keyboard=True
+    keyboard=[[KB.button_5, KB.button_6], [KB.button_7], [KB.button_10]],
+    resize_keyboard=True,
 )
 
-# Все виды F4D наработанного
+# Все виды наработанного F4D
 my_keyboard_2 = ReplyKeyboardMarkup(
-    keyboard=[[button_5, button_6], [button_17], [button_10]], resize_keyboard=True
+    keyboard=[[KB.button_5, KB.button_6], [KB.button_17], [KB.button_10]],
+    resize_keyboard=True,
 )
 
 # Все виды PPA
 my_keyboard_3 = ReplyKeyboardMarkup(
-    keyboard=[[button_8, button_9], [button_10]], resize_keyboard=True
+    keyboard=[[KB.button_8, KB.button_9], [KB.button_10]], resize_keyboard=True
 )
 
 # Взятие/наработка
 my_keyboard_4 = ReplyKeyboardMarkup(
-    keyboard=[[button_11, button_12], [button_10]], resize_keyboard=True
+    keyboard=[[KB.button_11, KB.button_12], [KB.button_10]], resize_keyboard=True
 )
 
 # Виды порошка
 my_keyboard_5 = ReplyKeyboardMarkup(
-    keyboard=[[button_1, button_2], [button_10]], resize_keyboard=True
+    keyboard=[[KB.button_1, KB.button_2], [KB.button_10]], resize_keyboard=True
 )
 
 # Виды процесса
 my_keyboard_6 = ReplyKeyboardMarkup(
-    keyboard=[[button_15, button_16]], resize_keyboard=True
+    keyboard=[[KB.button_15, KB.button_16]], resize_keyboard=True
 )
 
 # Вещества на суспензию
 my_keyboard_7 = ReplyKeyboardMarkup(
-    keyboard=[[button_1, button_3], [button_13, button_14], [button_10]],
+    keyboard=[[KB.button_1, KB.button_3], [KB.button_13, KB.button_14], [KB.button_10]],
     resize_keyboard=True,
+)
+my_keyboard_8 = ReplyKeyboardMarkup(keyboard=[[KB.button_18, KB.button_10]], resize_keyboard=True
 )
