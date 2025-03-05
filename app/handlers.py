@@ -235,7 +235,9 @@ async def process_comment_command(message: Message, state: FSMContext):
 
 @router.message(F.text == "Правильно")
 async def process_end_command(message: Message):
-    await message.answer(text="Спасибо! К началу /start", reply_markup=ReplyKeyboardRemove())
+    await message.answer(
+        text="Спасибо! К началу /start", reply_markup=ReplyKeyboardRemove()
+    )
     if states["table"] == "Взятое":
         return akc.taken(
             username=username,

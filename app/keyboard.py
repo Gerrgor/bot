@@ -38,5 +38,6 @@ my_keyboard_7 = ReplyKeyboardMarkup(
     keyboard=[[KB.button_1, KB.button_3], [KB.button_13, KB.button_14], [KB.button_10]],
     resize_keyboard=True,
 )
-my_keyboard_8 = ReplyKeyboardMarkup(keyboard=[[KB.button_18, KB.button_10]], resize_keyboard=True
+my_keyboard_8 = ReplyKeyboardMarkup(
+    keyboard=[[KB.button_18, KB.button_10]], resize_keyboard=True
 )

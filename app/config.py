@@ -55,4 +55,4 @@ class KB:
     button_15 = KeyboardButton(text="Мельница")
     button_16 = KeyboardButton(text="Сушка")
     button_17 = KeyboardButton(text="Циклон")
-    button_18 = KeyboardButton(text='Правильно')
+    button_18 = KeyboardButton(text="Правильно")
